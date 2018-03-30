@@ -1,35 +1,35 @@
 # IPFS Module Guide
 
-This short document aims to be a quick guide for anyone implementing IPFS -- it is modelled after go-ipfs, and serves as a template for js-ipfs and py-ipfs.
+This document is just a quick guide for if you want to implement IPFS -- its modelled after go-ipfs, and this serves as a template for both js-ipfs and py-ipfs.
 
 Sections:
 - IPFS Types
-- API Transports
 - API Commands
+- API Transports
 - Implementing bindings for the HTTP API
 
-## Libraries First
+## The Libraries
 
-There are a number of non-ipfs specific things that have been built for ipfs, that ipfs depends on. Implement these first.
-
-### The Multis
-
-There are a number of self-describing protocols/formats in use all over ipfs.
-
-- [multiaddr](https://github.com/multiformats/multiaddr)
-- [multihash](https://github.com/multiformats/multihash)
-- [multicodec](https://github.com/multiformats/multicodec)
-- [multistream](https://github.com/multiformats/multistream)
+There are lots of non-IPFS related modules that have been buiult for IPFS that acts as dependencies. 
 
 ### libp2p
 
-All the complex peer-to-peer protocols for IPFS have been abstracted out into a separate library called `libp2p`. `libp2p` is a thin veneer over a wealth of modules that interface well with each other.
+There are some nontrivial peer to peer protocols necessary for IPFS. These have been abstracted and placed into an entirely seperate module called libp2p. This is a very thin wrapper around a lot of modules that interact with each other. 
 
 Implementations:
 - [go-libp2p](https://github.com/libp2p/go-libp2p)
 - [js-libp2p](https://github.com/libp2p/js-libp2p)
 
-`libp2p` may in fact be _the bulk_ of an ipfs implementation. The rest is very simple.
+`libp2p` could very well be _the bulk_ of an ipfs implementation. The rest is very simple.
+
+### The Multi libraries. Things to remember
+
+There are quite a number of self-describing protocols/formats in use all over ipfs.
+
+- [multiaddr](https://github.com/multiformats/multiaddr)
+- [multicodec](https://github.com/multiformats/multicodec)
+- [multihash](https://github.com/multiformats/multihash)
+- [multistream](https://github.com/multiformats/multistream)
 
 ## Core Pieces
 
@@ -113,49 +113,49 @@ _**For now, i list these from the commandline, but the goal is to produce a prop
 
 These are the for the node itself.
 
+- ipfs stats
+- ipfs diag
 - ipfs init
 - ipfs config
 - ipfs repo
 - ipfs repo gc
-- ipfs stats
-- ipfs diag
 
 #### Data Commands
 
-- ipfs block
-- ipfs object
-- ipfs {cat, ls, refs}
 - ipfs pin
 - ipfs files
 - ipfs tar
 - ipfs resolve
+- ipfs block
+- ipfs object
+- ipfs {cat, ls, refs}
 
 #### Network Commands
 
 These are carried over from libp2p, so ideally the libp2p implementations do the heavy lifting here.
 
-- ipfs id
-- ipfs ping
-- ipfs swarm
 - ipfs exchange
 - ipfs routing
 - ipfs bitswap
 - ipfs bootstrap
+- ipfs id
+- ipfs ping
+- ipfs swarm
 
 #### Naming commands
 
 These are carried over from IPNS (can make that its own tool/lib).
 
-- ipfs dns
 - ipfs name
+- ipfs dns
 
 #### Tool Commands
 
 - ipfs log
 - ipfs update
+- ipfs daemon
 - ipfs version
 - ipfs tour
-- ipfs daemon
 
 ## IPFS Datastructures and Data Handling
 
