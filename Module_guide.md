@@ -1,4 +1,4 @@
-# IPFS Implementation Doc
+# IPFS Module Guide
 
 This short document aims to be a quick guide for anyone implementing IPFS -- it is modelled after go-ipfs, and serves as a template for js-ipfs and py-ipfs.
 
@@ -181,20 +181,4 @@ Importing data into IPFS can be done in a variety of ways. These are use-case sp
   - container and vm images
   - and many more
 
-### `unixfs` datastructure
 
-It's worth mentioning the `unixfs` datastructure, as it provides support for representing unix (posix) files in ipfs. It's simple, but powerful. And it is first class, in that several basic commands make use of it.
-
-### Interesting Data Structure questions
-
-**interfacing with a variety of data structures**
-
-We are still figuring out good ways to make all the different data structures play well with various commands -- there is some complexity when it comes to implementing things like `ipfs cat` -- it currently outputs the data of a `unixfs.File`, but it could do something for other graph objects too. Ideally, we could figure out common ways of making this work, If you have ideas, please discuss.
-
-**graph mapping**
-
-Sometimes one graph maps to another, for example a unixfs graph shards big files and big directories into smaller units and transparently presents them to the user for commands such as `ipfs cat` and `ipfs ls`.
-
-**mixing data structures**
-
-Some data structures are meant to be interspersed with others, meaning that they provide meaning to arbitrary things. One example is a `keychain.Signature`, which provides a cryptographic signature on any other object. Another example is a `versioning.Commit` which represents a specific revision in a version history over any other object. It is still not entirely clear how to build nice tooling that handles these transparently.
